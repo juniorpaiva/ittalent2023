@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   mongodb:
     image: mongo:latest
@@ -7,11 +7,10 @@ services:
       - mongodb_data:/data/db
     networks:
       - go-api-net
-    ports:
-      - "27017:27017"
   
   go-crud:
-    image: juniorpaiva/go-api:1.0
+    image: juniorpaiva/go-api:1.1
+    restart: always
     container_name: go-crud
     networks:
       - go-api-net
@@ -19,13 +18,12 @@ services:
       - mongodb
     ports:
       - "9080:9080"
-    enviroment:
-      - MONGO_DB_HOST="mongodb"
+    environment:
+      MONGO_DB_HOST: mongodb
 
 networks:
   go-api-net:
 
 volumes:
   mongodb_data:
-
 
